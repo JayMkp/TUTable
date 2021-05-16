@@ -11,3 +11,7 @@ Name the database "dbcaiwl"
 Click Import to import the SQL file.
 Click choose file and select the dbcaiwl in the root folder of the source code
 Click go.
+
+
+admin username: admin
+admin password: admin 
