@@ -13,5 +13,5 @@ Click choose file and select the dbcaiwl in the root folder of the source code
 Click go.
 
 
-admin username: admin
-admin password: admin 
+Admin username: admin ||
+Admin password: admin123 
