@@ -1,55 +1,107 @@
-<?php 
-require_once("include/initialize.php");  
-if (!isset($_SESSION['StudentID'])) {
-  # code...
-  redirect('login.php');
-}
-$content='home.php';
-$view = (isset($_GET['q']) && $_GET['q'] != '') ? $_GET['q'] : '';
-switch ($view) { 
-  case 'lesson':
-    $title = "Lesson";
-    $content = 'lesson.php';
-   # code...
-   break; 
-  case 'exercises':
-    $title = "Exercises";
-    $content = 'exercises.php';
-   # code...
-   break; 
-  case 'download':
-    $title = "Download";
-    $content = 'download.php';
-   # code...
-   break; 
-  case 'about':
-    $title = "About Us";
-    $content = 'about.php';
-   # code...
-   break; 
-  case 'playvideo':
-    $title = "Play Video";
-    $content = 'playvideo.php';
-   # code...
-   break; 
-  case 'viewpdf':
-    $title = "Play Video";
-    $content = 'viewpdf.php';
-   # code...
-   break; 
-  case 'question':
-    $title = "Question";
-    $content = 'question.php';
-   # code...
-   break; 
-  case 'quizresult':
-    $title = "Result";
-    $content = 'quizresult.php';
-   # code...
-   break; 
-  default :
-    $title = "Home";
-    $content    = 'home.php';
-}
-require_once("navigation/navigations.php");
-?>
+<!DOCTYPE html>
+<html lang="en" class="" style="height: auto;">
+<?php require_once('config.php'); ?>
+ <?php require_once('inc/header.php') ?>
+  <body class="hold-transition layout-top-nav" >
+    <div class="wrapper">
+     <?php require_once('inc/topBarNav.php') ?>
+              
+     <?php $page = isset($_GET['page']) ? $_GET['page'] : 'portal';  ?>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper" style="min-height: 567.854px;">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0"><?php echo ucwords(str_replace("_", " ",$page)) ?></h1>
+              </div>
+              <!-- /.col -->
+              <!-- <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="./admin?<?php echo $page ?>"><?php echo ucwords(str_replace("_", " ",$page)) ?></a></li>
+                  <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+              </div> -->
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+          <div class="container">
+            <?php 
+              if(!file_exists($page.".php") && !is_dir($page)){
+                  include '404.html';
+              }else{
+                if(is_dir($page))
+                  include $page.'/index.php';
+                else
+                  include $page.'.php';
+
+              }
+            ?>
+          </div>
+        </section>
+        <!-- /.content -->
+        <div class="modal fade" id="confirm_modal" role='dialog'>
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        <div id="delete_content"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal" role='dialog'>
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title"></h5>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="uni_modal_right" role='dialog'>
+    <div class="modal-dialog modal-full-height  modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="fa fa-arrow-right"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="viewer_modal" role='dialog'>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+              <button type="button" class="btn-close" data-dismiss="modal"><span class="fa fa-times"></span></button>
+              <img src="" alt="">
+      </div>
+    </div>
+  </div>
+      </div>
+      <!-- /.content-wrapper -->
+      <?php require_once('inc/footer.php') ?>
+  </body>
+</html>
